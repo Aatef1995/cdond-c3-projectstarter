@@ -30,7 +30,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       -Checkout 
-      - run:
+      - run: 
+          name: Test front-end
           command: |
             cd frontend
             npm install
@@ -43,6 +44,7 @@ jobs:
     steps:
       -Checkout 
       - run:
+          name: Back-end test
           command: |
             cd backend
             npm install
