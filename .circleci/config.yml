@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Back-end build
+          name: Build Back-end 
           command: |
             cd backend
             npm install
