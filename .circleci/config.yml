@@ -1,7 +1,6 @@
 version: 2.1
 
-orbs: 
-    slack: circleci/slack@4.10.1
+
 
 commands:
   destroy_environment:
@@ -121,7 +120,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: back-end infrastructure 
+          name: back-end infrastructure exist
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
@@ -130,7 +129,7 @@ jobs:
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
               
       - run:
-          name: front-end infrastructure
+          name: front-end infrastructure exist
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
