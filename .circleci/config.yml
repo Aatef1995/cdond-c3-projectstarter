@@ -185,7 +185,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: node:16.17. 0-bullseye-slim
+      - image: node:alpine
     steps:
       - checkout
       - run:
