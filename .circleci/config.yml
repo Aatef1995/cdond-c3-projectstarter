@@ -218,10 +218,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-          sudo amazon-linux-extras install ansible2 -y
+          sudo yum install -y ansible
           ansible --version
-          sudo install python3.7
-          sudo install nodejs -y
+          sudo yum install python3.7
+          sudo yum install nodejs -y
           node -v
           npm install
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
