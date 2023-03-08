@@ -212,12 +212,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-    # attach workspace
-      - attach_workspace:
-          at: .
       - run:
           name: Install dependencies
           command: |
+            yum install -y tar gzip
             sudo yum install -y ansible
             ansible --version
             sudo yum install python3.7
@@ -227,6 +225,10 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
+    # attach workspace
+      - attach_workspace:
+          at: .
+
       - run:
           name: Get backend url
           command: |
