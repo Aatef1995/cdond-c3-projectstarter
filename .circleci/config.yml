@@ -216,8 +216,8 @@ jobs:
           name: Install dependencies
           command: |
             yum install -y tar gzip
-            yum apt-get update
-            yum apt-get upgrade -y
+            yum update
+            yum upgrade -y
             sudo apt install -y ansible
             ansible --version
             sudo apt install python3.8
