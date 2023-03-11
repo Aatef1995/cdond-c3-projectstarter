@@ -209,29 +209,12 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: ahmedatef1995/myimage
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            yum install -y tar gzip
-            yum update
-            yum upgrade -y
-            sudo apt install -y ansible
-            ansible --version
-            sudo apt install python3.8
-            sudo apt install nodejs -y
-            node -v
-            sudo apt install npm -y
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            sudo apt install unzip
-            unzip awscliv2.zip         
-            sudo ./aws/install
     # attach workspace
       - attach_workspace:
           at: .
-
       - run:
           name: Get backend url
           command: |
@@ -250,22 +233,22 @@ jobs:
 workflows:
   default:
     jobs:
-    #  - build-frontend
-    #  - build-backend  
-    #       requires: [build-frontend]   
-    # - test-backend:
-    #      requires: [build-backend]   
-    #  - scan-frontend:
-    #        requires: [build-frontend]   
-    #  - scan-backend:
-    #        requires: [build-backend]
-    #  - deploy-infrastructure:
-    #        requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-    #  - configure-infrastructure:
-    #        requires: [deploy-infrastructure]    
-    #  - run-migrations:
-    #        requires: [configure-infrastructure]
-      - deploy-frontend
-    #      requires: [run-migrations]
+      - build-frontend
+      - build-backend  
+           requires: [build-frontend]   
+     - test-backend:
+          requires: [build-backend]   
+      - scan-frontend:
+            requires: [build-frontend]   
+      - scan-backend:
+            requires: [build-backend]
+      - deploy-infrastructure:
+            requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      - configure-infrastructure:
+            requires: [deploy-infrastructure]    
+      - run-migrations:
+            requires: [configure-infrastructure]
+      - deploy-frontend:
+          requires: [run-migrations]
 
            
