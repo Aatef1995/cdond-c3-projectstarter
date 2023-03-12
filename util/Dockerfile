@@ -1,7 +1,7 @@
 FROM circleci/node:13.8.0
 
- docker build -t <ahmedatef1995/myimage .
- docker push <ahmedatef1995/myimage
+ #docker build -t <ahmedatef1995/myimage .
+ #docker push <ahmedatef1995/myimage
 
 #RUN sudo c url "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
  #   sudo unzip awscliv2.zip && \
