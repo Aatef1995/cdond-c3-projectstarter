@@ -166,10 +166,10 @@ jobs:
       - attach_workspace:
           at: .
 
-      - run:
-          name: Reading from inventory file
-          command: |
-            cat inventory.txt
+     # - run:
+     #     name: Reading from inventory file
+     #     command: |
+     #       cat inventory.txt
 
       - run:
           name: Configure server
