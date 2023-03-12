@@ -150,7 +150,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: ahmedatef1995/myimage
+      - image: ahmedatef1995/myimage:1.0
         auth:
           username: ahmedatef1995  # can specify string literal values
           password: P@..ssworD1995  # or project environment variable reference
