@@ -150,10 +150,10 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: ahmedatef1995/myimage:1.0
-        auth:
-          username: ahmedatef1995  # can specify string literal values
-          password: P@..ssworD1995  # or project environment variable reference
+      - image: ahmedatef1995/nodeimage
+         auth:
+           username: ahmedatef1995  # can specify string literal values
+           password: P@..ssworD1995  # or project environment variable reference
     steps:
       - checkout
       # Add ssh keys with fingerprint
@@ -247,8 +247,8 @@ workflows:
      #   requires: [build-backend]
       - deploy-infrastructure
      #   requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      - configure-infrastructure
-     #   requires: [deploy-infrastructure]    
+      - configure-infrastructure:
+         requires: [deploy-infrastructure]    
     #- run-migrations:
     #    requires: [configure-infrastructure]
     #- deploy-frontend:
