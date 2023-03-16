@@ -302,9 +302,11 @@ jobs:
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
-              	return 0
+              echo "It worked!"
+              exit 0
             else
-         	      return 1
+              echo "Rolling Back"
+              exit 1
             fi
 
 workflows:
