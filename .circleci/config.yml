@@ -297,17 +297,14 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export API_URL=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             
-            # URL="http://$BACKEND_PUBLIC_IP:3030/api/status"
-            URL="http://g00gle.com"
-            if curl -s --head ${URL}
+            echo "${API_URL}"
+            if curl "${API_URL}/api/status" | grep "ok"
             then
-              echo "It worked!"
-              exit 0
+              	return 0
             else
-              echo "Rolling Back"
-              exit 1
+         	      return 1
             fi
 
 workflows:
