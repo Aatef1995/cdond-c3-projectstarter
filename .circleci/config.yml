@@ -321,6 +321,7 @@ jobs:
               echo "Rolling Back"
               exit 1
             fi
+      - destroy_environment
 
 workflows:
   default:
