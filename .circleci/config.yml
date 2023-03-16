@@ -300,7 +300,7 @@ jobs:
             export API_URL=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             
             echo "${API_URL}"
-            if curl "${API_URL}/api/status" | grep "ok"
+            if curl "${API_URL}:3030/api/status" | grep "ok"
             then
               echo "It worked!"
               exit 0
