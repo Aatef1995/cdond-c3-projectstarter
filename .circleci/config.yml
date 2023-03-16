@@ -316,7 +316,7 @@ jobs:
             if curl -s ${URL} | grep "Welcome"
             then
               echo "It worked!"
-              exit 1
+              exit 0
             else
               echo "Rolling Back"
               exit 1
@@ -337,18 +337,18 @@ workflows:
      #   requires: [build-frontend]   
      #- scan-backend:
      #   requires: [build-backend]
-      - deploy-infrastructure
+     # - deploy-infrastructure
      #   requires: [test-frontend, test-backend, scan-frontend, scan-backend]
      #- configure-infrastructure:
      #   requires: [deploy-infrastructure]    
      #- run-migrations:
      #   requires: [configure-infrastructure]
-      - deploy-frontend:
+     # - deploy-frontend:
          requires: [deploy-infrastructure]
      #- deploy-backend
      #   requires: [run-migrations]
-      - smoke-test:
-         requires: [deploy-frontend]
+      - smoke-test
+     #    requires: [deploy-frontend]
           
 
            
