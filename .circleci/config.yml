@@ -257,6 +257,29 @@ jobs:
             cd ../.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure     
+
+  smoke-test:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      # - checkout
+      - run:
+          name: Backend smoke test.
+          command: |
+            export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            
+            # URL="http://$BACKEND_PUBLIC_IP:3030/api/status"
+            URL="http://g00gle.com"
+            if curl -s --head ${URL}
+            then
+              echo "It worked!"
+              exit 0
+            else
+              echo "Rolling Back"
+              exit 1
+            fi
+      - notify_on_failure
+      - destroy_environment
                           
 workflows:
   default:
@@ -271,16 +294,18 @@ workflows:
      #   requires: [build-frontend]   
      #- scan-backend:
      #   requires: [build-backend]
-       - deploy-infrastructure
+     # - deploy-infrastructure
      #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
      #  - configure-infrastructure:
      #     requires: [deploy-infrastructure]    
      #  - run-migrations:
      #     requires: [configure-infrastructure]
-       - deploy-frontend:
-           requires: [deploy-infrastructure]
+     #  - deploy-frontend:
+     #     requires: [deploy-infrastructure]
      # - deploy-backend
      #     requires: [run-migrations]
+       - smoke-test
+     #      requires: [deploy-backend, deploy-frontend]
           
 
            
