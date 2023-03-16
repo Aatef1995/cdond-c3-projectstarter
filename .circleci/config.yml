@@ -278,6 +278,7 @@ jobs:
             cd ../.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure     
+      
   smoke-test:
     docker:
       - image: amazon/aws-cli
@@ -320,12 +321,12 @@ workflows:
      #   requires: [deploy-infrastructure]    
      #- run-migrations:
      #   requires: [configure-infrastructure]
-      - deploy-frontend
+     # - deploy-frontend
      #   requires: [deploy-infrastructure]
-      - deploy-backend
+     # - deploy-backend
      #   requires: [run-migrations]
-      - smoke-test:
-         requires: [deploy-backend, deploy-frontend]
+      - smoke-test
+     #    requires: [deploy-backend, deploy-frontend]
           
 
            
