@@ -174,7 +174,6 @@ jobs:
             - inventory.txt
       Here's where you will add some code to rollback on failure  
 
-
   configure-infrastructure:
     docker:
       - image: ahmedatef1995/nodeimage:1.0
