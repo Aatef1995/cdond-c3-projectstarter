@@ -144,14 +144,14 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      # - run:
-      #     name: back-end infrastructure exist
-      #     command: |
-      #       aws cloudformation deploy \
-      #         --template-file .circleci/files/backend.yml \
-      #         --tags project=udapeople  \
-      #         --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"  \
-      #         --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
+      - run:
+          name: back-end infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file .circleci/files/backend.yml \
+              --tags project=udapeople  \
+              --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"  \
+              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
               
       - run:
           name: front-end infrastructure exist
@@ -162,16 +162,16 @@ jobs:
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
        
-      # - run:
-      #     name: Add back-end ip to ansible inventory
-      #     command: |
-      #       yum install -y tar gzip
-      #       aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
+      - run:
+          name: Add back-end ip to ansible inventory
+          command: |
+            yum install -y tar gzip
+            aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
       
-      # - persist_to_workspace:
-      #     root: .
-      #     paths:
-      #       - inventory.txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - inventory.txt
       # Here's where you will add some code to rollback on failure  
 
   configure-infrastructure:
@@ -384,21 +384,21 @@ workflows:
       #  - scan-frontend:
       #      requires: [build-frontend]
         - deploy-infrastructure
-          #requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          #   requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           # filters:
           #   branches: 
           #     only: [main]
-        # - configure-infrastructure:
-        #     requires: [deploy-infrastructure]
-        # - run-migrations:
-        #     requires: [configure-infrastructure]
+        - configure-infrastructure:
+            requires: [deploy-infrastructure]
+        - run-migrations:
+            requires: [configure-infrastructure]
         - deploy-frontend:
             requires: [deploy-infrastructure]
-        # - deploy-backend:
-        #     requires: [run-migrations]
-        # - smoke-test:
-        #     requires: [deploy-backend, deploy-frontend]
+        - deploy-backend:
+            requires: [run-migrations]
+        - smoke-test:
+            requires: [deploy-backend, deploy-frontend]
         - cloudfront-update:
-            requires: [deploy-frontend]
+            requires: [smoke-test]
         - cleanup:
             requires: [cloudfront-update]
