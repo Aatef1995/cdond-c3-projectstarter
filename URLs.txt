@@ -1,0 +1,5 @@
+[URL01]:   https://github.com/Aatef1995/cdond-c3-projectstarter
+[URL02]:   http://udapeople-b4a1018.s3-website-us-east-1.amazonaws.com/#/employees
+[URL03]:   d1gxykscuz71kz.cloudfront.net	
+Backend [URL04]:   http://3.235.166.10:3030/api/status
+
